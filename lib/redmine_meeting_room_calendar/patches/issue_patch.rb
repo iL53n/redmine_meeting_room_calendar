@@ -33,12 +33,12 @@ err = 0
             @project_id_ill = @project_ids_ill[0]
           end
           if self[:due_date].to_s == '' || self[:due_date].to_s == '0' || self[:due_date].to_s == 'nil'
-            errors.add :due_date, ' не может быть пустой!'
+            errors.add :due_date, 'Дата окончания не может быть пустой!'
             err = 1
             return
           end
           if self[:due_date].to_s != self[:start_date].to_s
-            errors.add :due_date, ' должен совпадать с начальной датой!'
+            errors.add :due_date, 'Дата окончания должна совпадать с начальной датой!'
             err = 1
             return
           end
@@ -70,7 +70,7 @@ err = 0
           end
           if self.custom_field_values[start_time].to_s != '' && self.custom_field_values[end_time].to_s != ''
                               if Time.parse(self.custom_field_values[start_time].to_s) >= Time.parse(self.custom_field_values[end_time].to_s)
-            errors.add self.custom_field_values[start_time].to_s, ' больше времени окончания!'
+            errors.add self.custom_field_values[start_time].to_s, 'Время начала больше времени окончания!'
             err = 1
             return
                               end
@@ -108,7 +108,8 @@ if err == 0 then
       @overlap = true
     end
     if @overlap == true
-      errors.add self.custom_field_values[room].to_s, 'уже забронирована!'
+      err = self.custom_field_values[room].to_s
+      errors.add err, "#{err} --> уже забронирована!"
 
       #   self.custom_field_values = { IssueCustomField.find(@custom_field_id_room).id => nil }
       return false
@@ -150,13 +151,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'занят(а) на другой встрече!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> занят(а) на другой встрече!"
               @overlap_user = true
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'занят(а) на другой встрече!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> занят(а) на другой встрече!"
             @overlap_user = true
           end
         end
@@ -165,13 +168,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'занят(а) на другой встрече!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> занят(а) на другой встрече!"
               @overlap_user = true
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'занят(а) на другой встрече!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> занят(а) на другой встрече!"
             @overlap_user = true
           end
         end
@@ -179,13 +184,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'занят(а) на другой встрече!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> занят(а) на другой встрече!"
               @overlap_user = true
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'занят(а) на другой встрече!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> занят(а) на другой встрече!"
             @overlap_user = true
           end
         end
@@ -193,13 +200,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'занят(а) на другой встрече!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> занят(а) на другой встрече!"
               @overlap_user = true
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'занят(а) на другой встрече!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> занят(а) на другой встрече!"
             @overlap_user = true
           end
         end
@@ -207,13 +216,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'занят(а) на другой встрече!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> занят(а) на другой встрече!"
               @overlap_user = true
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'занят(а) на другой встрече!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> занят(а) на другой встрече!"
             @overlap_user = true
           end
         end
@@ -252,13 +263,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'будет отсутствовать!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> будет отсутствовать!"
               return false
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'будет отсутствовать!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> будет отсутствовать!"
             return false
           end
         end
@@ -266,13 +279,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'будет отсутствовать!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> будет отсутствовать!"
               return false
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'будет отсутствовать!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> будет отсутствовать!"
             return false
           end
         end
@@ -280,13 +295,15 @@ if err == 0 then
         if c == 1
           for k in s do
             if @issues[i].d4_value == k then
-              errors.add User.find(k).to_s, 'будет отсутствовать!'
+              err = User.find(k).to_s
+              errors.add err, "#{err} --> будет отсутствовать!"
               return false
             end
           end
         else
           if @issues[i].d4_value == s then
-            errors.add User.find(s).to_s, 'будет отсутствовать!'
+            err = User.find(s).to_s
+            errors.add err, "#{err} --> будет отсутствовать!"
             return false
           end
         end
