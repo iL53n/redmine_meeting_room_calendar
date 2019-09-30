@@ -99,9 +99,10 @@
        end
     %>
     <%= label_tag("label_project", l(:label_project), html_options = { :style=> "visibility:#{projects_visibility};" }) %>
-    <%= select_tag("project_id", options_for_select(@projects, @project_id), html_options = { :style=> "visibility:#{projects_visibility};" }) %>
+    <%#= select_tag("project_id", options_for_select(@projects, @project_id), html_options = { :style=> "visibility:#{projects_visibility};" }) %>
+    <%= select_tag("project_id", options_for_select([['Все', '']] + @projects, @project_id), html_options = { :style=> "visibility:#{projects_visibility};" }) %>
+
     <!-- Meeting Rooms List -->
-  <!-- Project List -->
     <%
        if @settings['hide_rooms'] == '1'
          rooms_visibility = 'hidden'
@@ -112,7 +113,7 @@
     <%= label_tag("label_meeting_room", l(:label_meeting_room), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
     <%= select_tag("meeting_rooms",options_for_select([[l(:label_all_meeting_rooms), 'all']] + @meeting_rooms), html_options = { :style=> "visibility:#{rooms_visibility};" }) %>
 
-
+  <!-- Uchastniki -->
 		<%= label_tag("sort_uchastniki", l(:sort_uchastniki)) %>
 		<%= select_tag "sort_uchastniki", options_for_select([['Все', 'all']] + @meeting_uchastniki) %><br/>
 

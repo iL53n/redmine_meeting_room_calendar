@@ -60,18 +60,28 @@ class MeetingRoomCalendarController < ApplicationController
     end
 
     @projects = Project.find(@project_ids).select{ |p| p.visible? && User.current.allowed_to?(:view_issues, p) }.collect { |p| [p.name, p.id] }
-    @project = Project.find_by_id(params[:project_id].to_i)
-    if @project == nil
-      @project = Project.find_by_id(@project_id.to_i)
-    end
-    if @project != nil && (!@project.visible? || !User.current.allowed_to?(:view_issues, @project)) && @projects != nil && @projects.first != nil
-      @project = Project.find_by_id(@projects.first[1])
-    end
-    if @project == nil
-      redirect_to :action => 'missing_config'
-      return
-    end
-    @project_id = @project.id
+
+    # if (params[:project_id]) == 'all'
+    #   @projects.each { |project| @project_id = project.id }
+    # else
+      @project = Project.find_by_id(params[:project_id].to_i)
+
+      if @project == nil
+        @project = Project.find_by_id(@project_id.to_i)
+      end
+
+      if @project != nil && (!@project.visible? || !User.current.allowed_to?(:view_issues, @project)) && @projects != nil && @projects.first != nil
+        @project = Project.find_by_id(@projects.first[1])
+      end
+
+      if @project == nil
+        redirect_to :action => 'missing_config'
+        return
+      end
+
+      @project_id = @project.id
+    # end
+
     @user = User.current.id
     @user_name = User.current.name
     @user_last_name = User.current.name(:lastname_coma_firstname)

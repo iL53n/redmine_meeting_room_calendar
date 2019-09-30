@@ -42,6 +42,7 @@
           if (project_id == project_id_ill) {
               ill = true;
           }
+
           var meeting_room = $('#meeting_rooms').val();
           var meeting_room_query = '';
 
@@ -61,7 +62,9 @@
           $.ajax({
               url : baseUrl + '/issues.json',
               dataType : 'json',
-              data : 'key=' + api_key + '&project_id=' + project_id + meeting_room_query + '&start_date=' + encodeURIComponent('>=') + today + '&status_id=' + encodeURIComponent('*') + '&limit=' + 1000 + '&offset=' + offset,
+              // data : 'key=' + api_key + '&project_id=' + project_id + meeting_room_query + '&start_date=' + encodeURIComponent('>=') + today + '&status_id=' + encodeURIComponent('*') + '&limit=' + 1000 + '&offset=' + offset,
+              data : 'key=' + api_key + meeting_room_query + '&start_date=' + encodeURIComponent('>=') + today + '&status_id=' + encodeURIComponent('*') + '&limit=' + 1000 + '&offset=' + offset,
+
               beforeSend : function(xhr) {
                   showSpinner();
               },
@@ -141,7 +144,7 @@
           //  events to be rendered on fullcalendar
           // building events json for fullcalendar
           for (var i = 0; i < count; i++) {
-if (event[i].project["id"] == $('#project_id').val()) {
+// if (event[i].project["id"] == $('#project_id').val()) {
     var eventIndexRoom = 0;
     var eventIndexStart = 1;
     var eventIndexEnd = 5;
@@ -246,7 +249,7 @@ if (event[i].project["id"] == $('#project_id').val()) {
             allDay : false
         });
     }
-}
+// }
 
 
           }
@@ -573,7 +576,9 @@ if (event[i].project["id"] == $('#project_id').val()) {
           $.ajax({
               url : baseUrl + '/issues.json',
               dataType : 'json',
-              data : 'key=' + api_key + '&project_id=' + project_id_ill + '&start_date=' + encodeURIComponent('>=') + today2 + '&status_id=' + encodeURIComponent('*') + '&limit=' + 500,
+              // data : 'key=' + api_key + '&project_id=' + project_id_ill + '&start_date=' + encodeURIComponent('>=') + today2 + '&status_id=' + encodeURIComponent('*') + '&limit=' + 500,
+              data : 'key=' + api_key + '&start_date=' + encodeURIComponent('>=') + today2 + '&status_id=' + encodeURIComponent('*') + '&limit=' + 500,
+
               beforeSend: function (xhr) {
                   showSpinner();
               },
